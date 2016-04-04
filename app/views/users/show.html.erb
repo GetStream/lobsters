@@ -13,6 +13,16 @@
     <% if @user && @showing_user.is_active? %>
       (<a href="/messages?to=<%= @showing_user.username %>">Send a Message</a>)
     <% end %>
+
+    <% unless @user == @showing_user %>
+      <div>
+        <% if StreamRails.feed_manager.get_feed("timeline", @user.id).following(0, 1, ["user:#{@showing_user.id}"])[:results] %>
+          <a href="#" class="unfollow_user" data-username="<%= @showing_user.username %>">Unfollow user</a>
+        <% else %>
+          <a href="#" class="follow_user" data-username="<%= @showing_user.username %>">Follow user</a>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 
   <% if @showing_user.is_active? %>
@@ -156,7 +166,7 @@
         <% if v.comment_id %>
           <a href="<%= v.comment.short_id_url %>">comment</a>
           by
-          <a href="/u/<%= v.comment.user.try(:username) %>"><%= 
+          <a href="/u/<%= v.comment.user.try(:username) %>"><%=
             v.comment.user.try(:username) %></a>
           on
           <a href="<%= v.story.short_id_url %>"><%= v.story.title %></a>

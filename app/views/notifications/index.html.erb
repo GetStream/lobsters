@@ -1,0 +1,9 @@
+<% if @activities.empty? %>
+  <h2>There are no activities to display yet.</h2>
+<% else %>
+  <% for activity in @activities %>
+    <ul id="notifications">
+      <%= render_activity activity, :partial_root => "notifications/activity" %>
+    </ul>
+  <% end %>
+<% end %>

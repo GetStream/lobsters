@@ -4,6 +4,27 @@
 
 "use strict";
 
+/* Extend jQuery with functions for PUT and DELETE requests. */
+function _ajax_request(url, data, callback, type, method) {
+  if (jQuery.isFunction(data)) {
+    callback = data;
+    data = {};
+  }
+  return jQuery.ajax({
+    type: method,
+    url: url,
+    data: data,
+    success: callback,
+    dataType: type
+  });
+}
+
+jQuery.extend({
+  delete_: function(url, data, callback, type) {
+      return _ajax_request(url, data, callback, type, 'DELETE');
+  }
+});
+
 var _Lobsters = Class.extend({
   curUser: null,
 
@@ -296,6 +317,27 @@ $(document).ready(function() {
   $("li.story a.mod_story_link").click(function() {
     return Lobsters.moderateStory(this);
   }),
+
+  $(document).on("click", "a.follow_user, a.unfollow_user", function(e) {
+    e.preventDefault();
+    if (!Lobsters.curUser) {
+      Lobsters.bounceToLogin();
+      return false;
+    }
+
+    var follow_username = $(this).data("username");
+    if ($(this).hasClass("follow_user")) {
+      $(this).text("Unfollow user")
+      $(this).attr("class", "follow_user");
+      $.post("/users/" + Lobsters.curUser + "/follow/" + follow_username)
+    } else {
+      $(this).text("Follow user")
+      $(this).attr("class", "follow_user");
+      $.delete_("/users/" + Lobsters.curUser + "/unfollow/" + follow_username)
+    }
+
+    return false;
+  });
 
   $(document).on("click", "a.comment_replier", function() {
     if (!Lobsters.curUser) {

@@ -1236,3 +1236,30 @@ div.fieldWithErrors {
 	text-decoration: none;
 	vertical-align: middle;
 }
+
+.activity {
+	margin-bottom: 20px;
+	height: 50px;
+	clear: both;
+}
+.activity .align-right {
+	float: right;
+}
+
+.activity .story-gravatar {
+	margin-right: 10px;
+	border-radius: 100% 100%;
+	border: 2px solid #fff;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+	float: left;
+}
+
+.activity .story-gravatar img {
+	height: 50px;
+	border-radius: 50px
+}
+
+#notifications {
+	list-style: none;
+	padding-left: 10px;
+}

@@ -1,0 +1,7 @@
+<% if @activities.empty? %>
+  <h2>There are no activities to display yet.</h2>
+<% else %>
+  <% for activity in @activities %>
+    <%= render_activity activity, :partial_root => "timeline/activity" %>
+  <% end %>
+<% end %>

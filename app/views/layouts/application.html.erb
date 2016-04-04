@@ -52,6 +52,7 @@
         <% links = {
           "/" => @cur_url == "/" ? Rails.application.name : "Home",
           "/recent" => "Recent",
+          "/timeline" => "Timeline",
           "/comments" => "Comments"
         } %>
 
@@ -94,6 +95,9 @@
           <a href="/settings" <%= @cur_url == "/settings" ?
             raw("class=\"cur_url\"") : "" %>><%= @user.username %>
             (<%= @user.karma %>)</a>
+
+          <a href="/notifications" <%= @cur_url == "/notifications" ?
+            raw("class=\"cur_url\"") : "" %>>Notifications</a>
 
           <%= link_to "Logout", { :controller => "login", :action => "logout" },
             :data => { :confirm => "Are you sure you want to logout?" },

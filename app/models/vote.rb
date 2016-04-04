@@ -22,6 +22,20 @@ class Vote < ActiveRecord::Base
     "Q" => "Low Quality",
   }
 
+  after_save :send_upvote_notification
+
+  def send_upvote_notification
+    return if user == story.user
+
+    activity = {
+      actor: "User:#{user.id}",
+      verb: "vote",
+      object: "Vote:#{self.id}",
+      story: "Story:#{story.id}"
+    }
+    StreamRails.client.feed("notifications", story.user.id).add_activity(activity)
+  end
+
   def self.votes_by_user_for_stories_hash(user, stories)
     votes = {}
 

@@ -26,6 +26,10 @@ gem "nokogiri", "= 1.6.1"
 gem "htmlentities"
 gem "rdiscount"
 
+# for creating activity streams & newsfeeds
+gem "stream_rails", github: "getstream/stream-rails"
+gem "stream-ruby", github: "getstream/stream-ruby"
+
 # for twitter-posting bot
 gem "oauth"
 

@@ -18,6 +18,10 @@ Lobsters::Application.routes.draw do
     get "/hidden" => "home#hidden"
     get "/hidden/page/:page" => "home#hidden"
 
+    get "/timeline" => "timeline#index"
+
+    get "/notifications" => "notifications#index"
+
     get "/upvoted(.format)" => "home#upvoted"
     get "/upvoted/page/:page" => "home#upvoted"
 
@@ -95,6 +99,9 @@ Lobsters::Application.routes.draw do
 
     post "/users/:username/ban" => "users#ban", :as => "user_ban"
     post "/users/:username/unban" => "users#unban", :as => "user_unban"
+
+    post "/users/:id/follow/:username" => "users#follow", :as => "user_follow"
+    delete "/users/:id/unfollow/:username" => "users#unfollow", :as => "user_unfollow"
 
     get "/settings" => "settings#index"
     post "/settings" => "settings#update"

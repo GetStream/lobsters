@@ -1,0 +1,17 @@
+<div class="activity">
+  <div class="story-gravatar">
+    <img src="<%= activity["actor"].avatar_url(100) %>"
+      srcset="<%= activity["actor"].avatar_url(100) %> 1x,
+      <%= activity["actor"].avatar_url(200) %> 2x">
+  </div>
+
+  <a href="/u/<%= activity["actor"].username %>"><%= activity["actor"].username %></a> commented on the story <a href="<%= activity["object"].url %>"><%= activity["object"].story.title %></a>
+
+  <div class="align-right">
+    <%= time_ago_in_words activity["object"].created_at %> ago
+  </div>
+
+  <blockquote>
+    <%= activity["object"].comment %>
+  </blockquote>
+</div>

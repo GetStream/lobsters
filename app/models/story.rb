@@ -1,4 +1,7 @@
 class Story < ActiveRecord::Base
+  include StreamRails::Activity
+  as_activity
+
   belongs_to :user
   belongs_to :merged_into_story,
     :class_name => "Story",
@@ -75,6 +78,14 @@ class Story < ActiveRecord::Base
     end
 
     check_tags
+  end
+
+  def activity_actor
+    self.user
+  end
+
+  def activity_object
+    self
   end
 
   def self.find_similar_by_url(url)

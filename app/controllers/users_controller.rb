@@ -67,4 +67,24 @@ class UsersController < ApplicationController
     flash[:success] = "User has been unbanned."
     return redirect_to user_path(:user => buser.username)
   end
+
+  def follow
+    target_user = User.where(:username => params[:username]).first
+    if @user == target_user
+      render :json => { :success => false }, :status => :unprocessable_entity and return
+    end
+
+    StreamRails.feed_manager.follow_user(@user.id, target_user.id)
+    render :json => { :success => true }, :status => :created and return
+  end
+
+  def unfollow
+    target_user = User.where(:username => params[:username]).first
+    if @user == target_user
+      render :json => { :success => false }, :status => :unprocessable_entity and return
+    end
+
+    StreamRails.feed_manager.unfollow_user(@user.id, target_user.id)
+    render :json => { :success => true }, :status => :created and return
+  end
 end

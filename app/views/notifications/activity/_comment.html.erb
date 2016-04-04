@@ -1,0 +1,4 @@
+<li class="notifications-comment">
+  <%= link_to(activity["activities"].first["actor"].username, user_path(activity["activities"].first["actor"])) %> commented on your story
+  <%= activity["activities"].compact.map { |activity| link_to(activity["object"].story.title, "/s/#{activity["object"].story.short_id}") }.compact.join(", ").html_safe %>.
+</li>

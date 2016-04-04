@@ -1,4 +1,7 @@
 class Comment < ActiveRecord::Base
+  include StreamRails::Activity
+  as_activity
+
   belongs_to :user
   belongs_to :story,
     :inverse_of => :comments
@@ -42,6 +45,20 @@ class Comment < ActiveRecord::Base
 
     self.comment.to_s.strip.match(/\Atl;?dr.?$\z/i) &&
       errors.add(:base, "Wow!  A blue car!")
+  end
+
+  def activity_actor
+    user
+  end
+
+  def activity_object
+    self
+  end
+
+  def activity_notify
+    if user != story.user
+      [StreamRails.feed_manager.get_notification_feed(story.user.id)]
+    end
   end
 
   def self.arrange_for_user(user)
