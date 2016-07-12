@@ -30,6 +30,11 @@ file.
 
          lobsters$ bundle
 
+* Setup API credentials for Stream.io (notification feed). Signup/Login to https://getstream.io, copy your
+API_KEY and API_SECRET and paste them into `config/initializers/stream_rails.rb` or expose them as environment variables
+(STREAM_API_KEY=my_api_key,STREAM_API_SECRET=my_api_secret)
+
+
 * Create a MySQL (other DBs supported by ActiveRecord may work, only MySQL and
 MariaDB have been tested) database, username, and password and put them in a
 `config/database.yml` file:
@@ -48,6 +53,7 @@ MariaDB have been tested) database, username, and password and put them in a
             database: db/test.sqlite3
             pool: 5
             timeout: 5000
+
 
 * Load the schema into the new database:
 
