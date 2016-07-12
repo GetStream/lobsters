@@ -33,7 +33,7 @@ class Vote < ActiveRecord::Base
       object: "Vote:#{self.id}",
       story: "Story:#{story.id}"
     }
-    StreamRails.client.feed("notifications", story.user.id).add_activity(activity)
+    StreamRails.client.feed("notification", story.user.id).add_activity(activity)
   end
 
   def self.votes_by_user_for_stories_hash(user, stories)
